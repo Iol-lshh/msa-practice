@@ -5,11 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lshh.pollservice.dto.poll.PollTypeDbConverter;
-import lshh.pollservice.dto.poll.PollOptionRequest;
-import lshh.pollservice.dto.poll.PollState;
-import lshh.pollservice.dto.poll.PollType;
-import lshh.pollservice.dto.poll.SelectPollType;
+import lshh.pollservice.dto.poll.*;
+import lshh.pollservice.dto.poll.property.PollContentsType;
+import lshh.pollservice.dto.poll.property.PollOptionType;
+import lshh.pollservice.dto.poll.property.PollState;
+import lshh.pollservice.dto.poll.property.SelectPollOptionType;
+import lshh.pollservice.dto.poll.schedule.PollScheduleOptionRequest;
 
 import java.util.List;
 
@@ -27,13 +28,15 @@ public class Poll {
     @Enumerated(EnumType.STRING)
     PollState state;
     @Convert(converter = PollTypeDbConverter.class)
-    PollType type;
+    PollOptionType type;
+    @Enumerated(EnumType.STRING)
+    PollContentsType contentsType;
 
     @OneToMany(mappedBy = "poll", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<PollScheduleOption> options;
 
-    public void addAll(List<PollOptionRequest> options) {
-        for (PollOptionRequest option : options) {
+    public void addAll(List<PollScheduleOptionRequest> options) {
+        for (PollScheduleOptionRequest option : options) {
             this.options.add(PollScheduleOption.builder()
                     .scheduleId(option.scheduleId())
                     .poll(this)
@@ -46,6 +49,6 @@ public class Poll {
     }
 
     public boolean isMultiVote() {
-        return type == SelectPollType.MULTI_VOTE;
+        return type == SelectPollOptionType.MULTI_VOTE;
     }
 }

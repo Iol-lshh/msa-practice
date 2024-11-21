@@ -6,6 +6,9 @@ import lshh.pollservice.domain.component.poll.PollFactory;
 import lshh.pollservice.domain.component.poll.PollRepository;
 import lshh.pollservice.domain.entity.Poll;
 import lshh.pollservice.dto.poll.*;
+import lshh.pollservice.dto.poll.schedule.PollScheduleCreateCommand;
+import lshh.pollservice.dto.poll.schedule.PollScheduleDetail;
+import lshh.pollservice.dto.poll.schedule.PollScheduleUpdateCommand;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,15 +22,15 @@ public class PollService {
     private final ScheduleRepository scheduleRepository;
 
     @Transactional
-    public PollDetail create(PollCreateCommand command) {
+    public PollScheduleDetail create(PollScheduleCreateCommand command) {
         command.options().forEach(option->scheduleRepository.getById(option.scheduleId()));
         Poll poll = factory.generate(command);
         repository.save(poll);
-        return PollDetail.from(poll);
+        return PollScheduleDetail.from(poll);
     }
 
     @Transactional
-    public PollSimple update(PollUpdateCommand command) {
+    public PollSimple update(PollScheduleUpdateCommand command) {
         // 상태 변경
         // 값 변경
         return null;

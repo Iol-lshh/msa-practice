@@ -1,6 +1,7 @@
 package lshh.pollservice.dto.poll;
 
 import lshh.pollservice.domain.entity.Poll;
+import lshh.pollservice.dto.poll.property.PollState;
 
 public record PollSimple(
         Long id,

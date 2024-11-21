@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -31,7 +30,7 @@ public class ParticipationService {
     @Transactional
     public ParticipationDetail vote(VoteCommand command) {
         Poll poll = pollRepository.getById(command.pollId());
-        validator.validateTryVote(poll, command);
+        validator.validateTryVote(poll);
         Participation participation = factory.generate(command.userId(), command.pollId());
         participation.vote(command.optionIds(), clockRepository.getClock());
         var result = repository.save(participation);
@@ -39,8 +38,13 @@ public class ParticipationService {
     }
 
     @Transactional
-    public DefaultResult update(VoteUpdateCommand command) {
-        return null;
+    public ParticipationDetail updateVote(VoteUpdateCommand command) {
+        Poll poll = pollRepository.getById(command.pollId());
+        validator.validateTryVote(poll);
+        Participation participation = repository.getByUserIdAndPollId(command.userId(), command.pollId());
+        participation.vote(command.optionIds(), clockRepository.getClock());
+        var result = repository.save(participation);
+        return ParticipationDetail.from(result);
     }
 
     @Transactional(readOnly = true)

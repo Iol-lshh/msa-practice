@@ -1,6 +1,11 @@
 package lshh.pollservice.domain;
 
-import lshh.pollservice.dto.poll.*;
+import lombok.extern.slf4j.Slf4j;
+import lshh.pollservice.dto.poll.property.PollState;
+import lshh.pollservice.dto.poll.property.SelectPollOptionType;
+import lshh.pollservice.dto.poll.schedule.PollScheduleCreateCommand;
+import lshh.pollservice.dto.poll.schedule.PollScheduleDetail;
+import lshh.pollservice.dto.poll.schedule.PollScheduleOptionRequest;
 import lshh.pollservice.dto.schedule.ScheduleCreateCommand;
 import lshh.pollservice.dto.schedule.ScheduleDetail;
 import lshh.pollservice.dto.schedule.ScheduleState;
@@ -14,6 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Slf4j
 @SpringBootTest
 class PollServiceTest {
     @Autowired
@@ -31,22 +37,22 @@ class PollServiceTest {
             ScheduleDetail schedule2 = scheduleService.create(scheduleCreateCommand);
             assertNotNull(schedule);
             assertNotNull(schedule2);
-            System.out.println(schedule);
-            System.out.println(schedule2);
+            log.info(schedule.toString());
+            log.info(schedule2.toString());
             // given
-            PollCreateCommand command = new PollCreateCommand(
+            PollScheduleCreateCommand command = new PollScheduleCreateCommand(
                     "title",
                     "description",
                     PollState.OPENED,
-                    SelectPollType.ONE_VOTE,
+                    SelectPollOptionType.ONE_VOTE,
                     List.of(
-                            new PollOptionRequest(schedule.id()),
-                            new PollOptionRequest(schedule2.id())
+                            new PollScheduleOptionRequest(schedule.id()),
+                            new PollScheduleOptionRequest(schedule2.id())
                     )
             );
 
             // when
-            PollDetail result = pollService.create(command);
+            PollScheduleDetail result = pollService.create(command);
             // then
             assertNotNull(result);
             assertNotNull(result.id());

@@ -2,16 +2,17 @@ package lshh.pollservice.dto.poll;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
+import lshh.pollservice.dto.poll.property.PollOptionType;
 
 @Converter
-public class PollTypeDbConverter implements AttributeConverter<PollType, String> {
+public class PollTypeDbConverter implements AttributeConverter<PollOptionType, String> {
     @Override
-    public String convertToDatabaseColumn(PollType pollType) {
-        return pollType.name();
+    public String convertToDatabaseColumn(PollOptionType pollOptionType) {
+        return pollOptionType.name();
     }
 
     @Override
-    public PollType convertToEntityAttribute(String s) {
-        return PollType.valueOf(s);
+    public PollOptionType convertToEntityAttribute(String s) {
+        return PollOptionType.valueOf(s);
     }
 }

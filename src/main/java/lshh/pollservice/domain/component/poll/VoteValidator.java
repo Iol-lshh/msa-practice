@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class VoteValidator {
 
-    public void validateTryVote(Poll poll, VoteCommand command) {
+    public void validateTryVote(Poll poll) {
         if (!poll.isOpened()) {
             throw new VoteException("투표가 종료되었습니다.");
         }

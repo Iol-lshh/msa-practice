@@ -1,17 +1,17 @@
-package lshh.pollservice.dto.poll;
+package lshh.pollservice.dto.poll.schedule;
 
 import lshh.pollservice.domain.entity.Poll;
 import lshh.pollservice.domain.entity.PollScheduleOption;
 
 import java.util.List;
 
-public record PollOptionDto(
+public record PollScheduleOptionDto(
         Long id,
         Long pollId,
         Long scheduleId
 ) {
-    public static PollOptionDto from(PollScheduleOption pollScheduleOption) {
-        return new PollOptionDto(
+    public static PollScheduleOptionDto from(PollScheduleOption pollScheduleOption) {
+        return new PollScheduleOptionDto(
                 pollScheduleOption.getId(),
                 pollScheduleOption.getPoll().getId(),
                 pollScheduleOption.getScheduleId()
@@ -26,9 +26,9 @@ public record PollOptionDto(
                 .build();
     }
 
-    public static List<PollScheduleOption> toEntityAll(List<PollOptionDto> options) {
+    public static List<PollScheduleOption> toEntityAll(List<PollScheduleOptionDto> options) {
         return options.stream()
-                .map(PollOptionDto::toEntity)
+                .map(PollScheduleOptionDto::toEntity)
                 .toList();
     }
 }

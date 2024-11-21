@@ -34,9 +34,9 @@ public class ParticipantController implements DefaultExceptionHandlable {
         return responseFactory.ok(result);
     }
 
-    @PostMapping("/update")
-    public Map<String, Object> update(VoteUpdateCommand command) {
-        var result = participationService.update(command);
+    @PostMapping("/update/vote")
+    public Map<String, Object> updateVote(VoteUpdateCommand command) {
+        var result = participationService.updateVote(command);
         return responseFactory.ok(result);
     }
 }

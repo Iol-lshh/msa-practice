@@ -3,6 +3,9 @@ package lshh.pollservice.presentation;
 import lombok.RequiredArgsConstructor;
 import lshh.pollservice.domain.PollService;
 import lshh.pollservice.dto.poll.*;
+import lshh.pollservice.dto.poll.schedule.PollScheduleCreateCommand;
+import lshh.pollservice.dto.poll.schedule.PollScheduleDetail;
+import lshh.pollservice.dto.poll.schedule.PollScheduleUpdateCommand;
 import lshh.pollservice.presentation.component.PollResponseFactory;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,13 +39,13 @@ public class PollController implements DefaultExceptionHandlable {
 
 
     @PostMapping("/create")
-    Map<String, Object> create(@RequestBody PollCreateCommand command) {
-        PollDetail result = pollService.create(command);
+    Map<String, Object> create(@RequestBody PollScheduleCreateCommand command) {
+        PollScheduleDetail result = pollService.create(command);
         return responseFactory.ok(result);
     }
 
     @PostMapping("/update")
-    Map<String, Object> update(@RequestBody PollUpdateCommand command) {
+    Map<String, Object> update(@RequestBody PollScheduleUpdateCommand command) {
         PollSimple result = pollService.update(command);
         return responseFactory.ok(result);
     }

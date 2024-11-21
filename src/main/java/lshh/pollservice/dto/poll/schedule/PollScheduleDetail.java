@@ -1,24 +1,25 @@
-package lshh.pollservice.dto.poll;
+package lshh.pollservice.dto.poll.schedule;
 
 import lshh.pollservice.domain.entity.Poll;
+import lshh.pollservice.dto.poll.property.PollState;
 
 import java.util.List;
 
-public record PollDetail(
+public record PollScheduleDetail(
         Long id,
         String title,
         String description,
         PollState state,
-        List<PollOptionDto> options
+        List<PollScheduleOptionDto> options
 ) {
-    public static PollDetail from(Poll poll) {
-        return new PollDetail(
+    public static PollScheduleDetail from(Poll poll) {
+        return new PollScheduleDetail(
                 poll.getId(),
                 poll.getTitle(),
                 poll.getDescription(),
                 poll.getState(),
                 poll.getOptions().stream()
-                        .map(PollOptionDto::from)
+                        .map(PollScheduleOptionDto::from)
                         .toList()
         );
     }
