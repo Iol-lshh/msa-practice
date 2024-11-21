@@ -25,12 +25,12 @@ public class Participation {
     Long pollId;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<ParticipationVote> voteList = new ArrayList<>();
+    List<ParticipationScheduleOption> voteList = new ArrayList<>();
 
     public void vote(List<Long> pollOptionIds, Clock clock){
         this.voteList.clear();
         var list = pollOptionIds.stream()
-                .map(pollOptionId -> ParticipationVote.builder()
+                .map(pollOptionId -> ParticipationScheduleOption.builder()
                         .participation(this)
                         .pollOptionId(pollOptionId)
                         .state(ParticipationState.VOTED)

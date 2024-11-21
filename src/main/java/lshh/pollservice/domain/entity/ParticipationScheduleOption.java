@@ -14,7 +14,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @Builder
 @Entity
-public class ParticipationVote {
+public class ParticipationScheduleOption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

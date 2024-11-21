@@ -1,6 +1,5 @@
 package lshh.pollservice.presentation.component;
 
-import lshh.pollservice.dto.DefaultResult;
 import lshh.pollservice.dto.Result;
 import lshh.pollservice.presentation.vo.ResponseState;
 

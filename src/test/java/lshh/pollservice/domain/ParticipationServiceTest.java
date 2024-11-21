@@ -33,7 +33,7 @@ class ParticipationServiceTest {
     private ScheduleService scheduleService;
 
     @Nested
-    class ParticipationVoteTest {
+    class ParticipationScheduleOptionTest {
         @Test
         void vote() {
             ScheduleCreateCommand scheduleCreateCommand = new ScheduleCreateCommand(Instant.now(), Instant.now(), ScheduleState.OPENED);
