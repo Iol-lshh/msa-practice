@@ -1,4 +1,4 @@
 package lshh.pollservice.presentation;
 
-public interface DefaultExceptionHandlable {
+public interface DefaultExceptionHandlable extends ExceptionHandlable{
 }

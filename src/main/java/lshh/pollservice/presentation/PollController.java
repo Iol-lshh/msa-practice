@@ -18,6 +18,12 @@ public class PollController implements DefaultExceptionHandlable {
     private final PollService pollService;
     private final PollResponseFactory responseFactory;
 
+    @GetMapping("/all")
+    Map<String, Object> all() {
+        var all = pollService.all();
+        return responseFactory.ok(all);
+    }
+
     @GetMapping("/list/{pageNo}/{pageSize}")
     Map<String, Object> list(@PathVariable(required = false) Integer pageNo, @PathVariable(required = false)  Integer pageSize) {
         if(pageNo == null) {

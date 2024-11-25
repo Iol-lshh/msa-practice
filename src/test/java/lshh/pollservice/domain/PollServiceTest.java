@@ -34,11 +34,11 @@ class PollServiceTest {
             ScheduleCreateCommand scheduleCreateCommand = new ScheduleCreateCommand(Instant.now(), Instant.now(), ScheduleState.OPENED);
             ScheduleDetail schedule = scheduleService.create(scheduleCreateCommand);
             ScheduleCreateCommand scheduleCreateCommand2= new ScheduleCreateCommand(Instant.now(), Instant.now(), ScheduleState.OPENED);
-            ScheduleDetail schedule2 = scheduleService.create(scheduleCreateCommand);
-            assertNotNull(schedule);
-            assertNotNull(schedule2);
+            ScheduleDetail schedule2 = scheduleService.create(scheduleCreateCommand2);
             log.info(schedule.toString());
             log.info(schedule2.toString());
+            assertNotNull(schedule.id());
+            assertNotNull(schedule2.id());
             // given
             PollScheduleCreateCommand command = new PollScheduleCreateCommand(
                     "title",
@@ -50,7 +50,7 @@ class PollServiceTest {
                             new PollScheduleOptionRequest(schedule2.id())
                     )
             );
-
+            log.info(command.toString());
             // when
             PollScheduleDetail result = pollService.create(command);
             // then

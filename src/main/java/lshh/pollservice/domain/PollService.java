@@ -38,12 +38,12 @@ public class PollService {
 
     @Transactional(readOnly = true)
     public List<PollSimple> all() {
-        return null;
+        return repository.findAll().stream().map(PollSimple::from).toList();
     }
 
     @Transactional(readOnly = true)
     public List<PollSimple> list(Integer pageNo, Integer pageSize) {
-        return null;
+        return repository.findList(pageNo, pageSize).stream().map(PollSimple::from).toList();
     }
 
     @Transactional(readOnly = true)
