@@ -1,4 +1,8 @@
 package lshh.pollservice.dto.poll;
 
-public record PollOpenCommand() {
+import lshh.pollservice.dto.Request;
+
+public record PollOpenCommand(
+
+) implements Request {
 }

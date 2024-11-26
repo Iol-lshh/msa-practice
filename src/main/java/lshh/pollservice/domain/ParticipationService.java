@@ -1,7 +1,7 @@
 package lshh.pollservice.domain;
 
 import lombok.RequiredArgsConstructor;
-import lshh.pollservice.domain.component.ClockRepository;
+import lshh.pollservice.common.lib.ClockManager;
 import lshh.pollservice.domain.component.participation.ParticipationFactory;
 import lshh.pollservice.domain.component.participation.ParticipationRepository;
 import lshh.pollservice.domain.component.poll.PollRepository;
@@ -25,14 +25,14 @@ public class ParticipationService {
     private final PollRepository pollRepository;
     private final VoteValidator validator;
     private final ParticipationFactory factory;
-    private final ClockRepository clockRepository;
+    private final ClockManager clockManager;
 
     @Transactional
     public ParticipationDetail vote(VoteCommand command) {
         Poll poll = pollRepository.getById(command.pollId());
         validator.validateTryVote(poll);
         Participation participation = factory.generate(command.userId(), command.pollId());
-        participation.vote(command.optionIds(), clockRepository.getClock());
+        participation.vote(command.optionIds(), clockManager.getClock());
         var result = repository.save(participation);
         return ParticipationDetail.from(result);
     }
@@ -42,7 +42,7 @@ public class ParticipationService {
         Poll poll = pollRepository.getById(command.pollId());
         validator.validateTryVote(poll);
         Participation participation = repository.getByUserIdAndPollId(command.userId(), command.pollId());
-        participation.vote(command.optionIds(), clockRepository.getClock());
+        participation.vote(command.optionIds(), clockManager.getClock());
         var result = repository.save(participation);
         return ParticipationDetail.from(result);
     }

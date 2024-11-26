@@ -1,5 +1,7 @@
 package lshh.pollservice.dto.schedule;
 
+import lshh.pollservice.dto.Request;
+
 import java.time.Instant;
 
 public record ScheduleUpdateCommand (
@@ -7,5 +9,5 @@ public record ScheduleUpdateCommand (
         Instant startAt,
         Instant endAt,
         ScheduleState state
-){
+) implements Request {
 }

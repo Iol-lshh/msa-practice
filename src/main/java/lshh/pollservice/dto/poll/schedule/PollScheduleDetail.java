@@ -1,7 +1,8 @@
 package lshh.pollservice.dto.poll.schedule;
 
 import lshh.pollservice.domain.entity.Poll;
-import lshh.pollservice.dto.poll.property.PollState;
+import lshh.pollservice.dto.Result;
+import lshh.pollservice.dto.poll.type.PollState;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public record PollScheduleDetail(
         String description,
         PollState state,
         List<PollScheduleOptionDto> options
-) {
+)  implements Result {
     public static PollScheduleDetail from(Poll poll) {
         return new PollScheduleDetail(
                 poll.getId(),

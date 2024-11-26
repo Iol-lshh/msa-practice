@@ -5,23 +5,27 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lshh.pollservice.domain.entity.user.User;
+import org.slf4j.Logger;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.security.Key;
+import java.time.Clock;
 import java.util.Date;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
 
 public class JwtHelper {
 
     private final String secretKey;
-    private final Long jwtExpiration;
+    private final Long expiration;
+    private final ClockManager clockManager;
+    private final Logger log;
 
-    public JwtHelper(String secretKey, Long jwtExpiration) {
+    public JwtHelper(String secretKey, Long expiration, ClockManager clockManager, Logger log) {
         this.secretKey = secretKey;
-        this.jwtExpiration = jwtExpiration;
+        this.expiration = expiration;
+        this.clockManager = clockManager;
+        this.log = log;
     }
 
     public String extractUsername(String jwt) {
@@ -51,17 +55,24 @@ public class JwtHelper {
     }
 
     public String generateToken(UserDetails userDetails) {
-        return buildToken(Map.of("pos", "dev"), userDetails, jwtExpiration);
+        var result = buildToken(Map.of("pos", "dev"), userDetails, expiration);
+        log.info("generateToken: {}", result);
+        return result;
     }
 
     private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long jwtExpiration) {
+        Clock clock = clockManager.getClock();
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .setIssuedAt(new Date(clock.millis()))
+                .setExpiration(new Date(clock.millis() + jwtExpiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+    public long getExpirationTime(){
+        return this.expiration;
     }
 }

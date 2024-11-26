@@ -2,6 +2,7 @@ package lshh.pollservice.dto.poll.schedule;
 
 import lshh.pollservice.domain.entity.Poll;
 import lshh.pollservice.domain.entity.PollScheduleOption;
+import lshh.pollservice.dto.Result;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public record PollScheduleOptionDto(
         Long id,
         Long pollId,
         Long scheduleId
-) {
+) implements Result {
     public static PollScheduleOptionDto from(PollScheduleOption pollScheduleOption) {
         return new PollScheduleOptionDto(
                 pollScheduleOption.getId(),

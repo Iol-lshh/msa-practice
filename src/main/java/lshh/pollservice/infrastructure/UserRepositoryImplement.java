@@ -2,25 +2,30 @@ package lshh.pollservice.infrastructure;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import lshh.pollservice.common.exception.PersistenceNotFoundException;
-import lshh.pollservice.domain.component.auth.RefreshWriter;
+import lshh.pollservice.common.lib.ClockManager;
 import lshh.pollservice.domain.component.user.UserRepository;
 import lshh.pollservice.domain.entity.user.User;
-import lshh.pollservice.domain.entity.user.UserRefresh;
 import lshh.pollservice.infrastructure.jpa.UserJpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.Clock;
 import java.util.Optional;
+
+import static lshh.pollservice.domain.entity.user.QUser.user;
 
 @RequiredArgsConstructor
 @Repository
-public class UserRepositoryImplement implements UserRepository, RefreshWriter {
+public class UserRepositoryImplement extends AbstractRepositoryWithJpa<User, Long>
+        implements UserRepository {
     private final UserJpaRepository jpaRepository;
     private final JPAQueryFactory jpaQueryFactory;
+    private final ClockManager clockManager;
+
 
     @Override
-    public Optional<User> findByUserId(Long userId) {
-        return jpaRepository.findByid(userId);
+    protected JpaRepository<User, Long> jpaRepository() {
+        return this.jpaRepository;
     }
 
     @Override
@@ -35,16 +40,29 @@ public class UserRepositoryImplement implements UserRepository, RefreshWriter {
 
     @Override
     public Optional<User> findByRefreshToken(String refresh) {
-        // todo
-        return null;
+        Clock clock = clockManager.getClock();
+        return Optional.ofNullable(
+                jpaQueryFactory
+                    .selectFrom(user)
+                    .where(user.userRefresh.any().token.eq(refresh)
+                        .and(user.userRefresh.any().logOuted.eq(false))
+                        .and(user.userRefresh.any().expiredAt.after(clock.instant()))
+                    )
+                    .fetchOne()
+        );
     }
 
     @Override
-    public UserRefresh write(UserRefresh userRefresh) {
-        User user = jpaRepository.findByLoginId(userRefresh.getLoginId())
-                .orElseThrow(()->new PersistenceNotFoundException("User not found"));
-        user.addRefresh(userRefresh);
-        jpaRepository.save(user);
-        return userRefresh;
+    public Optional<User> findByAuthenticationToken(String token) {
+        Clock clock = clockManager.getClock();
+        return Optional.ofNullable(
+                jpaQueryFactory
+                    .selectFrom(user)
+                    .where(user.userAuthentication.any().token.eq(token)
+                        .and(user.userAuthentication.any().confirmed.eq(false))
+                        .and(user.userAuthentication.any().expiredAt.after(clock.instant()))
+                    )
+                    .fetchOne()
+        );
     }
 }

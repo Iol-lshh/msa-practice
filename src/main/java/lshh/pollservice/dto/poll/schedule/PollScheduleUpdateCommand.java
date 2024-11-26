@@ -1,4 +1,8 @@
 package lshh.pollservice.dto.poll.schedule;
 
-public record PollScheduleUpdateCommand() {
+import lshh.pollservice.dto.Request;
+
+public record PollScheduleUpdateCommand(
+
+) implements Request {
 }

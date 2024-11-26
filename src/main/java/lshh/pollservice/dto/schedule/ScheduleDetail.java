@@ -1,6 +1,7 @@
 package lshh.pollservice.dto.schedule;
 
 import lshh.pollservice.domain.entity.Schedule;
+import lshh.pollservice.dto.Result;
 
 import java.time.Instant;
 
@@ -9,7 +10,7 @@ public record ScheduleDetail(
         Instant startAt,
         Instant endAt,
         ScheduleState state
-) {
+)  implements Result {
     public static ScheduleDetail from(Schedule schedule) {
         return new ScheduleDetail(
                 schedule.getId(),

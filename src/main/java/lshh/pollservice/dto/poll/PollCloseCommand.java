@@ -1,4 +1,8 @@
 package lshh.pollservice.dto.poll;
 
-public record PollCloseCommand() {
+import lshh.pollservice.dto.Request;
+
+public record PollCloseCommand(
+
+) implements Request {
 }

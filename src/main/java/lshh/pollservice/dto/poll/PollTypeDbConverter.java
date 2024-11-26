@@ -2,7 +2,7 @@ package lshh.pollservice.dto.poll;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import lshh.pollservice.dto.poll.property.PollOptionType;
+import lshh.pollservice.dto.poll.type.PollOptionType;
 
 @Converter
 public class PollTypeDbConverter implements AttributeConverter<PollOptionType, String> {

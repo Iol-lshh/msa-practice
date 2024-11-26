@@ -1,6 +1,7 @@
 package lshh.pollservice.domain.component.poll;
 
 import lombok.RequiredArgsConstructor;
+import lshh.pollservice.domain.component.EntityFactory;
 import lshh.pollservice.domain.entity.Poll;
 import lshh.pollservice.dto.poll.schedule.PollScheduleCreateCommand;
 import org.springframework.stereotype.Component;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 
 @RequiredArgsConstructor
 @Component
-public class PollFactory {
+public class PollFactory implements EntityFactory<Poll> {
     public Poll generate(PollScheduleCreateCommand command) {
         Poll poll = Poll.builder()
                 .title(command.title())

@@ -50,8 +50,14 @@ management:
         web.exposure.include: health,info
 
 security:
+    authentication:
+        secret-key: "authentication"
+        expiration: 600000
     access:
-        secret-key: secret
-        expiration: 86400000
+        secret-key: "accessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccess"
+        expiration: 1800000
+    refresh:
+        secret-key: "refresh"
+        expiration: 2592000000
 
 

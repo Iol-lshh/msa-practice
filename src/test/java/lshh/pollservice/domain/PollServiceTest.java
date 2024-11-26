@@ -1,8 +1,8 @@
 package lshh.pollservice.domain;
 
 import lombok.extern.slf4j.Slf4j;
-import lshh.pollservice.dto.poll.property.PollState;
-import lshh.pollservice.dto.poll.property.SelectPollOptionType;
+import lshh.pollservice.dto.poll.type.PollState;
+import lshh.pollservice.dto.poll.type.SelectPollOptionType;
 import lshh.pollservice.dto.poll.schedule.PollScheduleCreateCommand;
 import lshh.pollservice.dto.poll.schedule.PollScheduleDetail;
 import lshh.pollservice.dto.poll.schedule.PollScheduleOptionRequest;
@@ -57,9 +57,7 @@ class PollServiceTest {
             assertNotNull(result);
             assertNotNull(result.id());
             assertEquals(2, result.options().size());
-            result.options().forEach(option -> {
-                assertNotNull(option.id());
-            });
+            result.options().forEach(option -> assertNotNull(option.id()));
         }
     }
 }

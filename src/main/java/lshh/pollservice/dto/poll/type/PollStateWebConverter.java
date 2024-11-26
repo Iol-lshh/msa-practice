@@ -1,4 +1,4 @@
-package lshh.pollservice.dto.poll.property;
+package lshh.pollservice.dto.poll.type;
 
 import org.springframework.core.convert.converter.Converter;
 

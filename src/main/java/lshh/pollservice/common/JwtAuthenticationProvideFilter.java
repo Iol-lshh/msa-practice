@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lshh.pollservice.common.exception.AccessTokenException;
 import lshh.pollservice.common.lib.JwtHelper;
 import lshh.pollservice.domain.AuthService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,47 +31,58 @@ public class JwtAuthenticationProvideFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
     {
-        String url = request.getRequestURL().toString();
-        log.info(request.getMethod() + ": " +url);
-        if(isRefreshRequest(url)){
-            log.info("try refresh");
-            filterChain.doFilter(request, response);
+        if(pass(filterChain, request, response)){
             return;
         }
-
-        try
-        {
-            final String authHeader = request.getHeader("Authorization");
-            log.info("authHeader : {}", authHeader);
-            if(authHeader == null || !authHeader.startsWith("Bearer ")){
-                log.warn("FAIL - no authHeader");
-                filterChain.doFilter(request, response);
-                return;
-            }
-            final String jwt = authHeader.replaceFirst("Bearer ", "");
-            final String username = jwtHelper.extractUsername(jwt);
-            if(username == null){
-                log.warn("FAIL - extract username");
-                filterChain.doFilter(request, response);
-                return;
-            }
+        try {
+            String username = extractUserName(filterChain, request, response);
             UserDetails userDetails = service.loadUserByUsername(username);
-            confirmed(filterChain, request, response, userDetails);
-            filterChain.doFilter(request, response);
-
+            confirm(filterChain, request, response, userDetails);
+            return;
+        } catch (AccessTokenException e){
+            log.warn("AccessTokenException: {}", e.getMessage());
         } catch (SignatureException e) {
             log.warn("SignatureException: {}", e.getMessage());
         } catch (MalformedJwtException e){
             log.warn("MalformedJwtException: {}", e.getMessage());
         } catch (ExpiredJwtException e) {
             log.warn("ExpiredJwtException: {}", e.getMessage());
-        } catch(Exception e) {
-            log.error(e.getMessage());
-            ((HttpServletResponse) response).sendError(500, e.getMessage());
         }
+        filterChain.doFilter(request, response);
     }
 
-    private void confirmed(FilterChain filterChain, HttpServletRequest request, HttpServletResponse response, UserDetails userDetails) {
+    private boolean pass(FilterChain filterChain, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String url = request.getRequestURL().toString();
+        log.info("{}: {}", request.getMethod(), url);
+        if( url.contains("/auth/")
+            || url.contains("/user/signup")
+        ){
+            log.info("PASS - {}: {}", request.getMethod(), url);
+            filterChain.doFilter(request, response);
+            return true;
+        }
+        return false;
+    }
+
+    private String extractUserName(FilterChain filterChain, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        final String authHeader = request.getHeader("Authorization");
+        log.info("authHeader : {}", authHeader);
+        if(authHeader == null || !authHeader.startsWith("Bearer ")){
+            log.warn("FAIL - no authHeader");
+            filterChain.doFilter(request, response);
+            throw new AccessTokenException("No authHeader");
+        }
+        final String jwt = authHeader.replaceFirst("Bearer ", "");
+        final String username = jwtHelper.extractUsername(jwt);
+        if(username == null){
+            log.warn("FAIL - extract username");
+            filterChain.doFilter(request, response);
+            throw new AccessTokenException("Fail to extract username");
+        }
+        return username;
+    }
+
+    private void confirm(FilterChain filterChain, HttpServletRequest request, HttpServletResponse response, UserDetails userDetails) throws ServletException, IOException {
         log.info("getUsername : " + userDetails.getUsername());
         UserThreadManager.setAdminId(userDetails.getUsername());
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
@@ -81,11 +93,7 @@ public class JwtAuthenticationProvideFilter extends OncePerRequestFilter {
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         log.info("SUCCESS - access token");
+        filterChain.doFilter(request, response);
     }
-
-    boolean isRefreshRequest(String url) {
-        return url.contains("/auth/refresh");
-    }
-
 }
 

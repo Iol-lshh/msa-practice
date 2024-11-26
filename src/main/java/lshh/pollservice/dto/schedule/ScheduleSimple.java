@@ -1,8 +1,7 @@
 package lshh.pollservice.dto.schedule;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lshh.pollservice.domain.entity.Schedule;
+import lshh.pollservice.dto.Result;
 
 import java.time.Instant;
 
@@ -11,7 +10,7 @@ public record ScheduleSimple(
         Instant startAt,
         Instant endAt,
         ScheduleState state
-) {
+) implements Result {
     public static ScheduleSimple from(Schedule schedule) {
         return new ScheduleSimple(
                 schedule.getId(),

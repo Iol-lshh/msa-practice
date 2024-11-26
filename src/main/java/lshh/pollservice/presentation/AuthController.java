@@ -2,10 +2,7 @@ package lshh.pollservice.presentation;
 
 import lombok.RequiredArgsConstructor;
 import lshh.pollservice.domain.AuthService;
-import lshh.pollservice.dto.auth.LoginCommand;
-import lshh.pollservice.dto.auth.LoginCommandByGoogle;
-import lshh.pollservice.dto.auth.LogoutCommand;
-import lshh.pollservice.dto.auth.RefreshCommand;
+import lshh.pollservice.dto.auth.*;
 import lshh.pollservice.presentation.component.AuthResponseFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,19 +19,25 @@ public class AuthController implements DefaultExceptionHandlable {
     private final AuthResponseFactory responseFactory;
 
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody LoginCommand command) {
-        var result = authService.login(command);
+    public Map<String, Object> logIn(@RequestBody LogInCommand command) {
+        AuthenticationSet result = authService.logIn(command);
         return responseFactory.aprove(result);
     }
 
     @PostMapping("/login/google")
-    public Map<String, Object> loginByGoogle(@RequestBody LoginCommandByGoogle command) {
+    public Map<String, Object> loginByGoogle(@RequestBody LogInCommandByGoogle command) {
         return null;
     }
 
+    @PostMapping("/authenticate")
+    public Map<String, Object> authenticate(@RequestBody AuthenticationCommand command) {
+        AuthorizationSet result = authService.authenticate(command);
+        return responseFactory.aprove(result);
+    }
+
     @PostMapping("/logout")
-    public Map<String, Object> logout(@RequestBody LogoutCommand command) {
-        var result = authService.logout(command);
+    public Map<String, Object> logOut(@RequestBody LogOutCommand command) {
+        var result = authService.logOut(command);
         return responseFactory.result(result);
     }
 

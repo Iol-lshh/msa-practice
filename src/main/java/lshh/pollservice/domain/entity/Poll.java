@@ -6,10 +6,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lshh.pollservice.dto.poll.*;
-import lshh.pollservice.dto.poll.property.PollContentsType;
-import lshh.pollservice.dto.poll.property.PollOptionType;
-import lshh.pollservice.dto.poll.property.PollState;
-import lshh.pollservice.dto.poll.property.SelectPollOptionType;
+import lshh.pollservice.dto.poll.type.PollContentsType;
+import lshh.pollservice.dto.poll.type.PollOptionType;
+import lshh.pollservice.dto.poll.type.PollState;
+import lshh.pollservice.dto.poll.type.SelectPollOptionType;
 import lshh.pollservice.dto.poll.schedule.PollScheduleOptionRequest;
 
 import java.util.List;

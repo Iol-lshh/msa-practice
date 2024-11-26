@@ -1,18 +1,16 @@
 package lshh.pollservice.domain;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lshh.pollservice.common.lib.ClockManager;
+import lshh.pollservice.common.lib.HashTokenHelper;
 import lshh.pollservice.common.lib.JwtHelper;
-import lshh.pollservice.domain.component.auth.RefreshFactory;
-import lshh.pollservice.domain.component.auth.RefreshWriter;
 import lshh.pollservice.domain.component.user.UserRepository;
 import lshh.pollservice.domain.entity.user.User;
+import lshh.pollservice.domain.entity.user.UserAuthentication;
 import lshh.pollservice.domain.entity.user.UserRefresh;
 import lshh.pollservice.dto.DefaultResult;
-import lshh.pollservice.dto.auth.AuthorizationSet;
-import lshh.pollservice.dto.auth.LoginCommand;
-import lshh.pollservice.dto.auth.LogoutCommand;
-import lshh.pollservice.dto.auth.RefreshCommand;
+import lshh.pollservice.dto.auth.*;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,13 +18,27 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
-@RequiredArgsConstructor
 @Service
 public class AuthService implements UserDetailsService {
     private final UserRepository repository;
     private final JwtHelper jwtHelper;
-    private final RefreshFactory refreshFactory;
-    private final RefreshWriter refreshWriter;
+    private final HashTokenHelper refreshTokenHelper;
+    private final HashTokenHelper authenticationTokenHelper;
+    private final ClockManager clockManager;
+
+    public AuthService(
+            UserRepository repository,
+            JwtHelper jwtHelper,
+            ClockManager clockManager,
+            @Qualifier("refreshTokenHelper") HashTokenHelper refreshTokenHelper,
+            @Qualifier("authenticationTokenHelper") HashTokenHelper authenticationTokenHelper
+    ) {
+        this.repository = repository;
+        this.jwtHelper = jwtHelper;
+        this.clockManager = clockManager;
+        this.refreshTokenHelper = refreshTokenHelper;
+        this.authenticationTokenHelper = authenticationTokenHelper;
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -35,28 +47,56 @@ public class AuthService implements UserDetailsService {
     }
 
     @Transactional
-    public AuthorizationSet login(LoginCommand command) {
+    public AuthenticationSet logIn(LogInCommand command) {
         User user = repository.getByLoginIdAndPassword(command.loginId(), command.password());
-        return generateAuthorizationSet(user);
+        var result = generateAuthenticationSet(user);
+        repository.save(user);
+        return result;
+    }
+
+    @Transactional
+    public AuthorizationSet authenticate(AuthenticationCommand command) {
+        User user = repository.getByAuthenticationToken(command.authenticationToken());
+        var result = generateAuthorizationSet(user);
+        repository.save(user);
+        return result;
     }
 
     @Transactional
     public AuthorizationSet refresh(RefreshCommand command) {
+        String refreshToken = command.refresh();
         User user = repository.getByRefreshToken(command.refresh());
-        return generateAuthorizationSet(user);
+        if(user.isNeedRefresh(refreshToken)){
+            var result = generateAuthorizationSet(user);
+            repository.save(user);
+            return result;
+        }
+        var result = generateAuthorizationSet(user, refreshToken);
+        repository.save(user);
+        return result;
+    }
+
+    AuthenticationSet generateAuthenticationSet(User user){
+        UserAuthentication authentication = user.authenticate(authenticationTokenHelper, clockManager.getClock());
+        log.info("generate authentication set: { loginId: {}, access: {} }", user.getLoginId(), authentication.getToken());
+        return new AuthenticationSet(authentication.getToken());
     }
 
     AuthorizationSet generateAuthorizationSet(User user){
-        UserRefresh userRefresh = refreshFactory.generateByMember(user);
-        refreshWriter.write(userRefresh);
+        UserRefresh refresh =  user.refreshAuthorization(refreshTokenHelper, clockManager.getClock());
+        return generateAuthorizationSet(user, refresh.getToken());
+    }
+
+    AuthorizationSet generateAuthorizationSet(User user, String refreshToken){
         String accessToken = jwtHelper.generateToken(user);
-        String refreshToken = userRefresh.getRefresh();
-        log.info("login: { loginId: "+user.getLoginId()+", access: "+accessToken+", refresh: "+refreshToken + " }");
+        log.info("generate authorization set: { loginId: {}, access: {}, refresh: {} }", user.getLoginId(), accessToken, refreshToken);
         return new AuthorizationSet(accessToken, refreshToken);
     }
 
-    public DefaultResult logout(LogoutCommand command) {
-
-            return null;
+    public DefaultResult logOut(LogOutCommand command) {
+        User user = repository.getByRefreshToken(command.refresh());
+        user.logOut(command.refresh());
+        log.info("logout: { loginId: {} }", user.getLoginId());
+        return DefaultResult.OK;
     }
 }

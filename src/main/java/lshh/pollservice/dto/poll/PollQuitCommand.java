@@ -1,4 +1,8 @@
 package lshh.pollservice.dto.poll;
 
-public record PollQuitCommand() {
+import lshh.pollservice.dto.Request;
+
+public record PollQuitCommand(
+
+) implements Request {
 }

@@ -1,4 +1,4 @@
-package lshh.pollservice.dto.poll.property;
+package lshh.pollservice.dto.poll.type;
 
 public enum PollState {
     BOOKED,
