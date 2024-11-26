@@ -2,12 +2,11 @@ package lshh.pollservice.presentation;
 
 import lombok.RequiredArgsConstructor;
 import lshh.pollservice.domain.UserService;
+import lshh.pollservice.dto.user.UserDetail;
+import lshh.pollservice.dto.user.UserRoleUpdateCommand;
 import lshh.pollservice.dto.user.UserSignUpCommand;
 import lshh.pollservice.presentation.component.UserResponseFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -23,4 +22,18 @@ public class UserController implements DefaultExceptionHandlable {
         var result = service.signUp(command);
         return responseFactory.ok(result);
     }
+
+    @PostMapping("/role/add")
+    public Map<String, Object> addRole(@RequestBody UserRoleUpdateCommand command) {
+        var result = service.addRole(command);
+        return responseFactory.ok(result);
+    }
+
+    @GetMapping("/detail/{loginId}")
+    public Map<String, Object> detail(@RequestParam("loginId") String loginId) {
+        UserDetail result = service.detail(loginId);
+        return responseFactory.ok(result);
+    }
+
 }
+

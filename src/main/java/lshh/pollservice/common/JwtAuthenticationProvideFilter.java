@@ -55,7 +55,7 @@ public class JwtAuthenticationProvideFilter extends OncePerRequestFilter {
         String url = request.getRequestURL().toString();
         log.info("{}: {}", request.getMethod(), url);
         if( url.contains("/auth/")
-            || url.contains("/user/signup")
+            || url.contains("/userMember/signup")
         ){
             log.info("PASS - {}: {}", request.getMethod(), url);
             filterChain.doFilter(request, response);

@@ -1,6 +1,6 @@
 package lshh.pollservice.dto.user;
 
-import lshh.pollservice.domain.entity.user.User;
+import lshh.pollservice.domain.entity.user.UserMember;
 import lshh.pollservice.dto.Result;
 
 public record UserSimple(
@@ -8,11 +8,11 @@ public record UserSimple(
         String loginId,
         String name
 ) implements Result {
-    public static UserSimple from(User user) {
+    public static UserSimple from(UserMember userMember) {
         return new UserSimple(
-                user.getId(),
-                user.getLoginId(),
-                user.getName()
+                userMember.getId(),
+                userMember.getLoginId(),
+                userMember.getName()
         );
     }
 }

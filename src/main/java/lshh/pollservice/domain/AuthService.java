@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import lshh.pollservice.common.lib.ClockManager;
 import lshh.pollservice.common.lib.HashTokenHelper;
 import lshh.pollservice.common.lib.JwtHelper;
-import lshh.pollservice.domain.component.user.UserRepository;
-import lshh.pollservice.domain.entity.user.User;
+import lshh.pollservice.domain.component.user.UserMemberRepository;
+import lshh.pollservice.domain.entity.user.UserMember;
 import lshh.pollservice.domain.entity.user.UserAuthentication;
 import lshh.pollservice.domain.entity.user.UserRefresh;
 import lshh.pollservice.dto.DefaultResult;
@@ -20,14 +20,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 public class AuthService implements UserDetailsService {
-    private final UserRepository repository;
+    private final UserMemberRepository repository;
     private final JwtHelper jwtHelper;
     private final HashTokenHelper refreshTokenHelper;
     private final HashTokenHelper authenticationTokenHelper;
     private final ClockManager clockManager;
 
     public AuthService(
-            UserRepository repository,
+            UserMemberRepository repository,
             JwtHelper jwtHelper,
             ClockManager clockManager,
             @Qualifier("refreshTokenHelper") HashTokenHelper refreshTokenHelper,
@@ -48,55 +48,55 @@ public class AuthService implements UserDetailsService {
 
     @Transactional
     public AuthenticationSet logIn(LogInCommand command) {
-        User user = repository.getByLoginIdAndPassword(command.loginId(), command.password());
-        var result = generateAuthenticationSet(user);
-        repository.save(user);
+        UserMember userMember = repository.getByLoginIdAndPassword(command.loginId(), command.password());
+        var result = generateAuthenticationSet(userMember);
+        repository.save(userMember);
         return result;
     }
 
     @Transactional
     public AuthorizationSet authenticate(AuthenticationCommand command) {
-        User user = repository.getByAuthenticationToken(command.authenticationToken());
-        var result = generateAuthorizationSet(user);
-        repository.save(user);
+        UserMember userMember = repository.getByAuthenticationToken(command.authenticationToken());
+        var result = generateAuthorizationSet(userMember);
+        repository.save(userMember);
         return result;
     }
 
     @Transactional
     public AuthorizationSet refresh(RefreshCommand command) {
         String refreshToken = command.refresh();
-        User user = repository.getByRefreshToken(command.refresh());
-        if(user.isNeedRefresh(refreshToken)){
-            var result = generateAuthorizationSet(user);
-            repository.save(user);
+        UserMember userMember = repository.getByRefreshToken(command.refresh());
+        if(userMember.isNeedRefresh(refreshToken)){
+            var result = generateAuthorizationSet(userMember);
+            repository.save(userMember);
             return result;
         }
-        var result = generateAuthorizationSet(user, refreshToken);
-        repository.save(user);
+        var result = generateAuthorizationSet(userMember, refreshToken);
+        repository.save(userMember);
         return result;
     }
 
-    AuthenticationSet generateAuthenticationSet(User user){
-        UserAuthentication authentication = user.authenticate(authenticationTokenHelper, clockManager.getClock());
-        log.info("generate authentication set: { loginId: {}, access: {} }", user.getLoginId(), authentication.getToken());
+    AuthenticationSet generateAuthenticationSet(UserMember userMember){
+        UserAuthentication authentication = userMember.authenticate(authenticationTokenHelper, clockManager.getClock());
+        log.info("generate authentication set: { loginId: {}, access: {} }", userMember.getLoginId(), authentication.getToken());
         return new AuthenticationSet(authentication.getToken());
     }
 
-    AuthorizationSet generateAuthorizationSet(User user){
-        UserRefresh refresh =  user.refreshAuthorization(refreshTokenHelper, clockManager.getClock());
-        return generateAuthorizationSet(user, refresh.getToken());
+    AuthorizationSet generateAuthorizationSet(UserMember userMember){
+        UserRefresh refresh =  userMember.refreshAuthorization(refreshTokenHelper, clockManager.getClock());
+        return generateAuthorizationSet(userMember, refresh.getToken());
     }
 
-    AuthorizationSet generateAuthorizationSet(User user, String refreshToken){
-        String accessToken = jwtHelper.generateToken(user);
-        log.info("generate authorization set: { loginId: {}, access: {}, refresh: {} }", user.getLoginId(), accessToken, refreshToken);
+    AuthorizationSet generateAuthorizationSet(UserMember userMember, String refreshToken){
+        String accessToken = jwtHelper.generateToken(userMember);
+        log.info("generate authorization set: { loginId: {}, access: {}, refresh: {} }", userMember.getLoginId(), accessToken, refreshToken);
         return new AuthorizationSet(accessToken, refreshToken);
     }
 
     public DefaultResult logOut(LogOutCommand command) {
-        User user = repository.getByRefreshToken(command.refresh());
-        user.logOut(command.refresh());
-        log.info("logout: { loginId: {} }", user.getLoginId());
+        UserMember userMember = repository.getByRefreshToken(command.refresh());
+        userMember.logOut(command.refresh());
+        log.info("logout: { loginId: {} }", userMember.getLoginId());
         return DefaultResult.OK;
     }
 }

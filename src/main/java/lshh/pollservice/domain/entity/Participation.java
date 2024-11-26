@@ -9,7 +9,6 @@ import lshh.pollservice.dto.participation.ParticipationState;
 
 import java.time.Clock;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -25,7 +24,7 @@ public class Participation {
     Long pollId;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<ParticipationScheduleOption> voteList = new ArrayList<>();
+    List<ParticipationScheduleOption> voteList;
 
     public void vote(List<Long> pollOptionIds, Clock clock){
         this.voteList.clear();

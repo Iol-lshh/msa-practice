@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lshh.pollservice.common.lib.HashTokenHelper;
+import lshh.pollservice.dto.user.UserRoleAuthority;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,15 +18,17 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Table(name = "users")
 @Entity
-public class User implements UserDetails {
+public class UserMember implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String loginId;
     String name;
     String password;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<UserAuthority> userAuthorities;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<UserRefresh> userRefresh;
@@ -35,7 +38,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return this.userAuthorities;
     }
 
     @Override
@@ -81,5 +84,15 @@ public class User implements UserDetails {
                         userRefresh.getToken().equals(refresh)
                         && !userRefresh.isNeedRefresh()
                 );
+    }
+
+    public void addRole(UserRoleAuthority role) {
+        if(this.userAuthorities.stream().anyMatch(userAuthority -> userAuthority.getRole().equals(role))){
+            return;
+        }
+        UserAuthority userAuthority = UserAuthority.builder()
+                .role(role)
+                .build();
+        this.userAuthorities.add(UserAuthority.builder().role(role).build());
     }
 }

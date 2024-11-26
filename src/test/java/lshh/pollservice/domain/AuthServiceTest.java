@@ -2,8 +2,8 @@ package lshh.pollservice.domain;
 
 import lombok.extern.slf4j.Slf4j;
 import lshh.pollservice.common.exception.PersistenceNotFoundException;
-import lshh.pollservice.domain.component.user.UserRepository;
-import lshh.pollservice.domain.entity.user.User;
+import lshh.pollservice.domain.component.user.UserMemberRepository;
+import lshh.pollservice.domain.entity.user.UserMember;
 import lshh.pollservice.dto.DefaultResult;
 import lshh.pollservice.dto.auth.*;
 import lshh.pollservice.dto.user.UserSignUpCommand;
@@ -25,11 +25,11 @@ class AuthServiceTest {
     @Autowired
     private AuthService authService;
     @Autowired
-    private UserRepository userRepository;
+    private UserMemberRepository userMemberRepository;
 
 
     @Nested
-    class LoadUserByUsernameTest{
+    class LoadUserRoleUpdateCommandMemberByUsernameTest {
         @Test
         void loadUserByUsername() {
             UserSignUpCommand command = new UserSignUpCommand("loadUserByUsername", "tester", "password");
@@ -104,9 +104,9 @@ class AuthServiceTest {
         void generateAuthenticationSet() {
             UserSignUpCommand command = new UserSignUpCommand("generateAuthenticationSet", "tester", "password");
             userService.signUp(command);
-            User user = userRepository.getByLoginId("generateAuthenticationSet");
+            UserMember userMember = userMemberRepository.getByLoginId("generateAuthenticationSet");
 
-            AuthenticationSet result = authService.generateAuthenticationSet(user);
+            AuthenticationSet result = authService.generateAuthenticationSet(userMember);
 
             assertNotNull(result);
             assertNotNull(result.authentication());
@@ -120,9 +120,9 @@ class AuthServiceTest {
         void generateAuthorizationSet() {
             UserSignUpCommand command = new UserSignUpCommand("generateAuthenticationSet", "tester", "password");
             userService.signUp(command);
-            User user = userRepository.getByLoginId("generateAuthenticationSet");
+            UserMember userMember = userMemberRepository.getByLoginId("generateAuthenticationSet");
 
-            AuthorizationSet result = authService.generateAuthorizationSet(user);
+            AuthorizationSet result = authService.generateAuthorizationSet(userMember);
 
             assertNotNull(result);
             assertNotNull(result.access());
@@ -134,10 +134,10 @@ class AuthServiceTest {
         void generateAuthorizationSet2() {
             UserSignUpCommand command = new UserSignUpCommand("generateAuthenticationSet2", "tester", "password");
             userService.signUp(command);
-            User user = userRepository.getByLoginId("generateAuthenticationSet2");
-            AuthorizationSet authorizationSet = authService.generateAuthorizationSet(user);
+            UserMember userMember = userMemberRepository.getByLoginId("generateAuthenticationSet2");
+            AuthorizationSet authorizationSet = authService.generateAuthorizationSet(userMember);
 
-            AuthorizationSet result = authService.generateAuthorizationSet(user, authorizationSet.refresh());
+            AuthorizationSet result = authService.generateAuthorizationSet(userMember, authorizationSet.refresh());
 
             assertNotNull(result);
             assertNotNull(result.access());

@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.Clock;
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,7 +24,7 @@ public class UserRefresh {
     Boolean logOuted;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    User user;
+    UserMember userMember;
 
     public boolean isNeedRefresh() {
         // todo

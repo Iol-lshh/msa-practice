@@ -24,7 +24,7 @@ public class UserAuthentication {
     Boolean confirmed;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    User user;
+    UserMember userMember;
 
     public boolean isExpired(Clock clock) {
         return expiredAt.isBefore(clock.instant()) || confirmed;
