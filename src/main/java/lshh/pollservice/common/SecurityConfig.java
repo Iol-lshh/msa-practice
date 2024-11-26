@@ -25,10 +25,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http.csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(config ->config
-                        .requestMatchers("auth/login/simple").permitAll()
-                        .requestMatchers("auth/login/google").permitAll()
-                        .requestMatchers("auth/refresh").permitAll()
+                        .requestMatchers("user/signup").permitAll()
+                        .requestMatchers("auth/**").permitAll()
                         .requestMatchers("swagger-ui/**").permitAll()
                         .requestMatchers("v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()

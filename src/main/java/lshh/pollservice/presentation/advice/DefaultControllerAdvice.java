@@ -21,4 +21,10 @@ public class DefaultControllerAdvice {
         log.warn("PersistenceNotFoundException: " + exception.getMessage());
         return factory.failPersistenceNotFoundException("DB에서 해당 정보를 찾을 수 없습니다." + exception.getMessage());
     }
+
+    @ExceptionHandler(Exception.class)
+    public Map<String, Object> handleException(Exception exception){
+        log.error("Exception: " + exception.getMessage());
+        return factory.error("예기치 못한 오류가 발생했습니다." + exception.getMessage());
+    }
 }

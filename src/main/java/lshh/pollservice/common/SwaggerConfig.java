@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
                 title = "Poll Service API",
                 version = "v1"
         ),
-        security = {@SecurityRequirement(name = "bearer")}
+        security = {@SecurityRequirement(name = "bearerAuth")}
 )
 @SecurityScheme(
         name = "bearerAuth",

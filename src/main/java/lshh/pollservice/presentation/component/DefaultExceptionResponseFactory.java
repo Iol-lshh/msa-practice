@@ -14,4 +14,12 @@ public class DefaultExceptionResponseFactory {
                 "message", message
         );
     }
+
+    public Map<String, Object> error(String message) {
+        return Map.of(
+                "state", "ERROR",
+                "errorCode", "UnexpectedError",
+                "message", message
+        );
+    }
 }
