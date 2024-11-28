@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lshh.pollservice.domain.component.schedule.ScheduleRepository;
 import lshh.pollservice.domain.component.poll.PollFactory;
 import lshh.pollservice.domain.component.poll.PollRepository;
-import lshh.pollservice.domain.entity.Poll;
+import lshh.pollservice.domain.entity.poll.Poll;
 import lshh.pollservice.dto.poll.*;
 import lshh.pollservice.dto.poll.schedule.PollScheduleCreateCommand;
 import lshh.pollservice.dto.poll.schedule.PollScheduleDetail;

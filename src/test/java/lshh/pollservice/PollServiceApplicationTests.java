@@ -9,5 +9,4 @@ class PollServiceApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

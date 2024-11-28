@@ -1,6 +1,6 @@
 package lshh.pollservice.infrastructure.jpa;
 
-import lshh.pollservice.domain.entity.Participation;
+import lshh.pollservice.domain.entity.participation.Participation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package lshh.pollservice.domain.component.participation;
 
 import lshh.pollservice.common.exception.PersistenceNotFoundException;
 import lshh.pollservice.domain.component.EntityRepository;
-import lshh.pollservice.domain.entity.Participation;
+import lshh.pollservice.domain.entity.participation.Participation;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package lshh.pollservice.dto.poll.schedule;
 
-import lshh.pollservice.domain.entity.Poll;
-import lshh.pollservice.domain.entity.PollScheduleOption;
+import lshh.pollservice.domain.entity.poll.Poll;
+import lshh.pollservice.domain.entity.poll.PollScheduleOption;
 import lshh.pollservice.dto.Result;
 
 import java.util.List;

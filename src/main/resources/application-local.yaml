@@ -25,6 +25,16 @@ spring:
                 jdbc:
                     time_zone: UTC
             id.new_generator_mappings: true
+security:
+    authentication:
+        secret-key: "authentication"
+        expiration: 600000
+    access:
+        secret-key: "accessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccess"
+        expiration: 1800000
+    refresh:
+        secret-key: "refresh"
+        expiration: 2592000000
 logging:
     level:
         root: info
@@ -42,22 +52,20 @@ management:
         health:
             show-details: always
             enabled: true
+            probes:
+                enabled: true
         info:
             enabled: true
     endpoints:
-        enabled-by-default: false
-#        jmx.exposure.exclude: "*"
-        web.exposure.include: health,info
-
-security:
-    authentication:
-        secret-key: "authentication"
-        expiration: 600000
-    access:
-        secret-key: "accessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccessaccess"
-        expiration: 1800000
-    refresh:
-        secret-key: "refresh"
-        expiration: 2592000000
-
-
+        web:
+            exposure:
+                include:
+                    - health
+                    - info
+springdoc:
+    swagger-ui:
+        disable-swagger-default-url: true
+        path: /index.html
+    api-docs:
+        path: /v3/api-docs
+    show-actuator: false

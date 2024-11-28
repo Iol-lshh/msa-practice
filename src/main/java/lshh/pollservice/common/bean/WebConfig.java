@@ -1,4 +1,4 @@
-package lshh.pollservice.common;
+package lshh.pollservice.common.bean;
 
 import lshh.pollservice.dto.poll.type.PollStateWebConverter;
 import org.springframework.context.annotation.Configuration;

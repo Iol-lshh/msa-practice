@@ -1,6 +1,6 @@
 package lshh.pollservice;
 
-import lshh.pollservice.common.InitConfig;
+import lshh.pollservice.common.bean.InitConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

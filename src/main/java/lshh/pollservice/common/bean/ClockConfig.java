@@ -1,4 +1,4 @@
-package lshh.pollservice.common;
+package lshh.pollservice.common.bean;
 
 import lshh.pollservice.common.lib.ClockManager;
 import lshh.pollservice.common.lib.LocalClockManager;

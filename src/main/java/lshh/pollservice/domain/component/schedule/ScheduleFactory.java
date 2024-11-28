@@ -1,7 +1,7 @@
 package lshh.pollservice.domain.component.schedule;
 
 import lshh.pollservice.domain.component.EntityFactory;
-import lshh.pollservice.domain.entity.Schedule;
+import lshh.pollservice.domain.entity.schedule.Schedule;
 import lshh.pollservice.dto.schedule.ScheduleCreateCommand;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package lshh.pollservice.common;
+package lshh.pollservice.common.bean;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;

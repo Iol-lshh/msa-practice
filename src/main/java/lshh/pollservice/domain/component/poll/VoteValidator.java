@@ -1,8 +1,8 @@
 package lshh.pollservice.domain.component.poll;
 
 import lshh.pollservice.common.exception.VoteException;
-import lshh.pollservice.domain.entity.Poll;
-import lshh.pollservice.domain.entity.ParticipationScheduleOption;
+import lshh.pollservice.domain.entity.poll.Poll;
+import lshh.pollservice.domain.entity.participation.ParticipationScheduleOption;
 import lshh.pollservice.dto.participation.VoteCommand;
 import org.springframework.stereotype.Component;
 

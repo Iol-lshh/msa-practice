@@ -1,4 +1,4 @@
-package lshh.pollservice.common;
+package lshh.pollservice.common.bean;
 
 public class UserThreadManager {
     private static final ThreadLocal<String> ADMIN_ID = new ThreadLocal<>();

@@ -1,4 +1,4 @@
-package lshh.pollservice.common;
+package lshh.pollservice.common.bean;
 
 import lombok.Getter;
 import lshh.pollservice.domain.UserService;

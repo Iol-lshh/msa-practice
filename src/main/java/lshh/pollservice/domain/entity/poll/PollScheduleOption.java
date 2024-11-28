@@ -1,25 +1,23 @@
-package lshh.pollservice.domain.entity;
+package lshh.pollservice.domain.entity.poll;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lshh.pollservice.dto.schedule.ScheduleState;
 
-import java.time.Instant;
-
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
 @Entity
-public class Schedule {
+public class PollScheduleOption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    Instant startAt;
-    Instant endAt;
-    @Enumerated(EnumType.STRING)
-    ScheduleState state;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    Poll poll;
+
+    Long scheduleId;
 }

@@ -1,7 +1,7 @@
 package lshh.pollservice.domain.component.schedule;
 
 import lshh.pollservice.domain.component.EntityRepository;
-import lshh.pollservice.domain.entity.Schedule;
+import lshh.pollservice.domain.entity.schedule.Schedule;
 
 import java.util.List;
 

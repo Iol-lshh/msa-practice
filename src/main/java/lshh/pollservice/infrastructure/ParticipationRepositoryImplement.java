@@ -2,7 +2,7 @@ package lshh.pollservice.infrastructure;
 
 import lombok.RequiredArgsConstructor;
 import lshh.pollservice.domain.component.participation.ParticipationRepository;
-import lshh.pollservice.domain.entity.Participation;
+import lshh.pollservice.domain.entity.participation.Participation;
 import lshh.pollservice.infrastructure.jpa.ParticipationJpaRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -1,6 +1,6 @@
 package lshh.pollservice.dto.participation;
 
-import lshh.pollservice.domain.entity.Participation;
+import lshh.pollservice.domain.entity.participation.Participation;
 import lshh.pollservice.dto.Result;
 
 import java.util.List;

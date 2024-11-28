@@ -1,4 +1,4 @@
-package lshh.pollservice.common;
+package lshh.pollservice.common.bean;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

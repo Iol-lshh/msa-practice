@@ -1,6 +1,6 @@
 package lshh.pollservice.dto.poll;
 
-import lshh.pollservice.domain.entity.Poll;
+import lshh.pollservice.domain.entity.poll.Poll;
 import lshh.pollservice.dto.Result;
 import lshh.pollservice.dto.poll.type.PollState;
 

@@ -1,4 +1,4 @@
-package lshh.pollservice.domain.entity;
+package lshh.pollservice.domain.entity.participation;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

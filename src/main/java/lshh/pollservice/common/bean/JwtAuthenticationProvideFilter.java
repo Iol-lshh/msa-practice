@@ -1,4 +1,4 @@
-package lshh.pollservice.common;
+package lshh.pollservice.common.bean;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -31,9 +31,6 @@ public class JwtAuthenticationProvideFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
     {
-        if(pass(filterChain, request, response)){
-            return;
-        }
         try {
             String username = extractUserName(filterChain, request, response);
             UserDetails userDetails = service.loadUserByUsername(username);
@@ -51,32 +48,15 @@ public class JwtAuthenticationProvideFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private boolean pass(FilterChain filterChain, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String url = request.getRequestURL().toString();
-        log.info("{}: {}", request.getMethod(), url);
-        if( url.contains("/auth/")
-            || url.contains("/userMember/signup")
-        ){
-            log.info("PASS - {}: {}", request.getMethod(), url);
-            filterChain.doFilter(request, response);
-            return true;
-        }
-        return false;
-    }
-
     private String extractUserName(FilterChain filterChain, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
         log.info("authHeader : {}", authHeader);
         if(authHeader == null || !authHeader.startsWith("Bearer ")){
-            log.warn("FAIL - no authHeader");
-            filterChain.doFilter(request, response);
             throw new AccessTokenException("No authHeader");
         }
         final String jwt = authHeader.replaceFirst("Bearer ", "");
         final String username = jwtHelper.extractUsername(jwt);
         if(username == null){
-            log.warn("FAIL - extract username");
-            filterChain.doFilter(request, response);
             throw new AccessTokenException("Fail to extract username");
         }
         return username;

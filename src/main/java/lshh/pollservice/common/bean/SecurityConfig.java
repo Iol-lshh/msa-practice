@@ -1,4 +1,4 @@
-package lshh.pollservice.common;
+package lshh.pollservice.common.bean;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,10 +27,12 @@ public class SecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(config ->config
-                        .requestMatchers("user/signup").permitAll()
-                        .requestMatchers("auth/**").permitAll()
-                        .requestMatchers("swagger-ui/**").permitAll()
-                        .requestMatchers("v3/api-docs/**").permitAll()
+                        .requestMatchers("/user/signup").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
+                        .requestMatchers("/health-test/hello").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated()
                 )
