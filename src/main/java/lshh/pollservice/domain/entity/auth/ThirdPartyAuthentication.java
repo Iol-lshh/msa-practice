@@ -1,4 +1,4 @@
 package lshh.pollservice.domain.entity.auth;
 
-public interface Authentication {
+public interface ThirdPartyAuthentication {
 }
