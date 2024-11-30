@@ -2,6 +2,7 @@ package lshh.pollservice.presentation;
 
 import lombok.RequiredArgsConstructor;
 import lshh.pollservice.domain.AuthService;
+import lshh.pollservice.domain.AuthWithGoogleService;
 import lshh.pollservice.dto.auth.*;
 import lshh.pollservice.presentation.component.AuthResponseFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import java.util.Map;
 public class AuthController implements DefaultExceptionHandlable {
     private final AuthService authService;
     private final AuthResponseFactory responseFactory;
+    private final AuthWithGoogleService authWithGoogleService;
 
     @PostMapping("/login")
     public Map<String, Object> logIn(@RequestBody LogInCommand command) {
@@ -26,6 +28,7 @@ public class AuthController implements DefaultExceptionHandlable {
 
     @PostMapping("/login/google")
     public Map<String, Object> loginByGoogle(@RequestBody LogInCommandByGoogle command) {
+        // 구글
         return null;
     }
 

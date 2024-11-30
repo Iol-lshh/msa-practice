@@ -93,6 +93,10 @@ public class UserMember implements UserDetails {
         UserAuthority userAuthority = UserAuthority.builder()
                 .role(role)
                 .build();
-        this.userAuthorities.add(UserAuthority.builder().role(role).build());
+        this.userAuthorities.add(userAuthority);
+    }
+
+    public void removeRole(UserRoleAuthority role) {
+        this.userAuthorities.removeIf(userAuthority -> userAuthority.getRole().equals(role));
     }
 }

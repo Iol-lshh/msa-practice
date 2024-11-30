@@ -4,8 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum DefaultResult implements Result{
-    OK("OK"),  // OK
-    FAIL("FAIL"), // FAIL
+    OK("확인"),
+    SUCCESS("성공"),
+    FAIL("실패"),
+    ERROR("오류")
     ;
 
     private final String message;

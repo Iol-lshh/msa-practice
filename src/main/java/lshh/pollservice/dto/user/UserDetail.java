@@ -2,6 +2,7 @@ package lshh.pollservice.dto.user;
 
 import lshh.pollservice.domain.entity.user.UserAuthority;
 import lshh.pollservice.domain.entity.user.UserMember;
+import lshh.pollservice.dto.Result;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public record UserDetail(
         String name,
         String password,
         List<UserRoleAuthority> roles
-) {
+) implements Result {
     public static UserDetail from(UserMember userMember) {
         List<UserRoleAuthority> roles = userMember.getUserAuthorities().stream()
                 .map(UserAuthority::getRole)

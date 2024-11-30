@@ -5,11 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lshh.pollservice.dto.poll.*;
-import lshh.pollservice.dto.poll.type.PollContentsType;
-import lshh.pollservice.dto.poll.type.PollOptionType;
-import lshh.pollservice.dto.poll.type.PollState;
-import lshh.pollservice.dto.poll.type.SelectPollOptionType;
+import lshh.pollservice.dto.poll.type.*;
 import lshh.pollservice.dto.poll.schedule.PollScheduleOptionRequest;
 
 import java.util.List;

@@ -4,8 +4,10 @@ import lshh.pollservice.dto.DefaultResult;
 import lshh.pollservice.dto.Result;
 
 public enum ResponseState {
-    OK("성공"),
-    FAIL("실패")
+    OK("확인"),
+    SUCCESS("성공"),
+    FAIL("실패"),
+    ERROR("오류")
     ;
 
     private final String defaultMessage;
@@ -17,8 +19,9 @@ public enum ResponseState {
     public static ResponseState from(Result result) {
         return switch (result){
             case DefaultResult.OK -> OK;
+            case DefaultResult.SUCCESS -> SUCCESS;
             case DefaultResult.FAIL -> FAIL;
-            default -> FAIL;
+            default -> ERROR;
         };
     }
 

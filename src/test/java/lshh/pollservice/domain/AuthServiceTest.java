@@ -161,7 +161,7 @@ class AuthServiceTest {
             DefaultResult result = authService.logOut(new LogOutCommand(authorizationSet.refresh()));
 
             assertNotNull(result);
-            assertEquals("OK", result.getMessage());
+            assertEquals("확인", result.getMessage());
             assertThrows(PersistenceNotFoundException.class, ()->authService.refresh(new RefreshCommand(authorizationSet.refresh())));
         }
     }

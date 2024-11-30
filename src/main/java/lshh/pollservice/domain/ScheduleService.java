@@ -21,8 +21,8 @@ public class ScheduleService {
     private final ScheduleFactory factory;
 
     @Transactional(readOnly = true)
-    public List<ScheduleSimple> list() {
-        return repository.findAll().stream().map(ScheduleSimple::from).toList();
+    public List<ScheduleSimple> list(Integer pageNo, Integer pageSize) {
+        return repository.findList(pageNo, pageSize).stream().map(ScheduleSimple::from).toList();
     }
 
     @Transactional(readOnly = true)
@@ -36,5 +36,9 @@ public class ScheduleService {
         schedule = repository.save(schedule);
         log.info("Schedule created: {}", schedule.getId());
         return ScheduleDetail.from(schedule);
+    }
+
+    public List<ScheduleSimple> all() {
+        return repository.findAll().stream().map(ScheduleSimple::from).toList();
     }
 }

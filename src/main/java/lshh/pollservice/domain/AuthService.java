@@ -71,14 +71,12 @@ public class AuthService implements UserDetailsService {
             repository.save(userMember);
             return result;
         }
-        var result = generateAuthorizationSet(userMember, refreshToken);
-        repository.save(userMember);
-        return result;
+        return generateAuthorizationSet(userMember, refreshToken);
     }
 
     AuthenticationSet generateAuthenticationSet(UserMember userMember){
         UserAuthentication authentication = userMember.authenticate(authenticationTokenHelper, clockManager.getClock());
-        log.info("generate authentication set: { loginId: {}, access: {} }", userMember.getLoginId(), authentication.getToken());
+        log.info("generate authentication set: { loginId: {}, authentication: {} }", userMember.getLoginId(), authentication.getToken());
         return new AuthenticationSet(authentication.getToken());
     }
 
