@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lshh.pollservice.domain.entity.auth.ThirdPartyAccount;
+import lshh.auth.lib.type.ThirdPartyAccount;
 
 @AllArgsConstructor
 @NoArgsConstructor

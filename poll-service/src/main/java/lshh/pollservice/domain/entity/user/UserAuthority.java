@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lshh.pollservice.dto.user.UserRoleAuthority;
+import lshh.auth.lib.type.UserRoleAuthority;
 import org.springframework.security.core.GrantedAuthority;
 
 @AllArgsConstructor

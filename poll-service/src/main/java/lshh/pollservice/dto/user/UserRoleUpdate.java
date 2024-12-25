@@ -1,6 +1,7 @@
 package lshh.pollservice.dto.user;
 
-import lshh.pollservice.dto.InputDto;
+import lshh.core.lib.type.InputDto;
+import lshh.auth.lib.type.UserRoleAuthority;
 
 public record UserRoleUpdate(
         String loginId,

@@ -23,6 +23,7 @@ configurations {
 
 dependencies {
     implementation project(':core')
+    implementation project(':auth')
     testImplementation project(':core')
     annotationProcessor project(':core-annotation')
     testAnnotationProcessor project(':core-annotation')

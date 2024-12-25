@@ -1,7 +1,7 @@
 package lshh.pollservice.dto.poll;
 
 import lshh.pollservice.domain.entity.poll.Poll;
-import lshh.pollservice.dto.OutputDto;
+import lshh.core.lib.type.OutputDto;
 import lshh.pollservice.dto.poll.type.PollState;
 
 public record PollSimple(

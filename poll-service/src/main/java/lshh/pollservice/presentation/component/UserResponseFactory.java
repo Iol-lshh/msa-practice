@@ -1,8 +1,9 @@
 package lshh.pollservice.presentation.component;
 
+import lshh.core.lib.component.AbstractResponseFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserResponseFactory extends AbstractResponseFactory{
+public class UserResponseFactory extends AbstractResponseFactory {
 
 }

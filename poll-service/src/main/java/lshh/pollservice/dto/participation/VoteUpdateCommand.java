@@ -1,6 +1,6 @@
 package lshh.pollservice.dto.participation;
 
-import lshh.pollservice.dto.InputDto;
+import lshh.core.lib.type.InputDto;
 
 import java.util.List;
 

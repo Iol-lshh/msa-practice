@@ -1,6 +1,6 @@
 package lshh.pollservice.dto.poll.schedule;
 
-import lshh.pollservice.dto.InputDto;
+import lshh.core.lib.type.InputDto;
 import lshh.pollservice.dto.poll.type.PollOptionType;
 import lshh.pollservice.dto.poll.type.PollState;
 

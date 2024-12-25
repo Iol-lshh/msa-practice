@@ -1,6 +1,7 @@
 package lshh.pollservice.presentation;
 
 import lombok.RequiredArgsConstructor;
+import lshh.core.lib.type.DefaultExceptionHandlable;
 import lshh.pollservice.domain.GoogleAuthService;
 import lshh.pollservice.domain.UserService;
 import lshh.pollservice.dto.user.UserDetail;

@@ -1,10 +1,13 @@
 package lshh.pollservice.presentation;
 
 import lombok.RequiredArgsConstructor;
+import lshh.auth.lib.type.AuthenticationSet;
+import lshh.auth.lib.type.AuthorizationSet;
+import lshh.core.lib.type.DefaultExceptionHandlable;
 import lshh.pollservice.domain.AuthService;
 import lshh.pollservice.domain.GoogleAuthService;
 import lshh.pollservice.dto.auth.*;
-import lshh.pollservice.presentation.component.AuthResponseFactory;
+import lshh.auth.bean.AuthResponseFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

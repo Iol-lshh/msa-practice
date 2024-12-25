@@ -1,6 +1,7 @@
 package lshh.pollservice.presentation.component;
 
-import lshh.pollservice.presentation.vo.ResponseState;
+import lshh.core.lib.component.AbstractResponseFactory;
+import lshh.core.lib.type.ResponseState;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

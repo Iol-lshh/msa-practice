@@ -1,7 +1,7 @@
 package lshh.pollservice.domain.component.thirdparty.google.account;
 
-import lshh.pollservice.common.exception.PersistenceNotFoundException;
-import lshh.pollservice.domain.component.EntityRepository;
+import lshh.core.lib.exception.PersistenceNotFoundException;
+import lshh.core.lib.component.EntityRepository;
 import lshh.pollservice.domain.entity.auth.google.GoogleAccount;
 
 import java.util.Optional;

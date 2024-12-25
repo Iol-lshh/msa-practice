@@ -1,8 +1,9 @@
 package lshh.pollservice.dto.user;
 
+import lshh.auth.lib.type.UserRoleAuthority;
 import lshh.pollservice.domain.entity.user.UserAuthority;
 import lshh.pollservice.domain.entity.user.UserMember;
-import lshh.pollservice.dto.OutputDto;
+import lshh.core.lib.type.OutputDto;
 
 import java.util.List;
 

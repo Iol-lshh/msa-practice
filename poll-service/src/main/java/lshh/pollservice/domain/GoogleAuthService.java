@@ -2,11 +2,11 @@ package lshh.pollservice.domain;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lshh.pollservice.common.exception.PersistenceDuplicatedException;
-import lshh.pollservice.common.lib.ClockManager;
-import lshh.pollservice.common.lib.GoogleAuthorization;
+import lshh.core.lib.exception.PersistenceDuplicatedException;
+import lshh.core.lib.util.ClockManager;
+import lshh.auth.lib.thirdparty.google.GoogleAuthorization;
 import lshh.pollservice.domain.component.thirdparty.google.account.GoogleAuthManager;
-import lshh.pollservice.common.lib.HashTokenHelper;
+import lshh.auth.lib.util.HashTokenHelper;
 import lshh.pollservice.domain.component.thirdparty.google.account.GoogleAccountFactory;
 import lshh.pollservice.domain.component.thirdparty.google.account.GoogleAccountRepository;
 import lshh.pollservice.domain.component.thirdparty.google.account.GoogleJwtManager;
@@ -15,12 +15,12 @@ import lshh.pollservice.domain.component.user.UserMemberRepository;
 import lshh.pollservice.domain.entity.auth.google.GoogleAccount;
 import lshh.pollservice.domain.entity.user.UserAuthentication;
 import lshh.pollservice.domain.entity.user.UserMember;
-import lshh.pollservice.dto.OutputDto;
-import lshh.pollservice.dto.auth.AuthenticationSet;
+import lshh.core.lib.type.OutputDto;
+import lshh.auth.lib.type.AuthenticationSet;
 import lshh.pollservice.dto.auth.LogInCommandByGoogle;
-import lshh.pollservice.dto.user.GoogleUserResource;
-import lshh.pollservice.dto.user.UserAddAccountCommandByGoogle;
-import lshh.pollservice.dto.user.UserAuthorizeForSignUpCommandByGoogle;
+import lshh.auth.lib.thirdparty.google.GoogleUserResource;
+import lshh.pollservice.dto.user.UserAddAccountByGoogle;
+import lshh.pollservice.dto.user.UserAuthorizeForSignUpByGoogle;
 import lshh.pollservice.dto.user.UserSignUpByGoogle;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +40,7 @@ public class GoogleAuthService {
 
 
     @Transactional(readOnly = true)
-    public String authorizeForSignUp(UserAuthorizeForSignUpCommandByGoogle command) {
+    public String authorizeForSignUp(UserAuthorizeForSignUpByGoogle command) {
         repository.findByGoogleId(command.googleId()).ifPresent(googleAuthentication -> {
             throw new PersistenceDuplicatedException("GoogleAccount already exists");
         });
@@ -74,7 +74,7 @@ public class GoogleAuthService {
     }
 
     @Transactional
-    public OutputDto addAccount(UserAddAccountCommandByGoogle command) {
+    public OutputDto addAccount(UserAddAccountByGoogle command) {
         repository.findByGoogleId(command.googleId()).ifPresent(googleAuthentication -> {
             throw new PersistenceDuplicatedException("GoogleAccount already exists");
         });

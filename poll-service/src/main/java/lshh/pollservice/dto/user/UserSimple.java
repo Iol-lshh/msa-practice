@@ -1,7 +1,7 @@
 package lshh.pollservice.dto.user;
 
 import lshh.pollservice.domain.entity.user.UserMember;
-import lshh.pollservice.dto.OutputDto;
+import lshh.core.lib.type.OutputDto;
 
 public record UserSimple(
         Long id,

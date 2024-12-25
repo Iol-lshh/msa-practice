@@ -1,14 +1,14 @@
 package lshh.pollservice.domain;
 
 import lombok.RequiredArgsConstructor;
-import lshh.pollservice.common.lib.ClockManager;
+import lshh.core.lib.util.ClockManager;
 import lshh.pollservice.domain.component.participation.ParticipationFactory;
 import lshh.pollservice.domain.component.participation.ParticipationRepository;
 import lshh.pollservice.domain.component.poll.PollRepository;
 import lshh.pollservice.domain.component.poll.VoteValidator;
 import lshh.pollservice.domain.entity.participation.Participation;
 import lshh.pollservice.domain.entity.poll.Poll;
-import lshh.pollservice.dto.DefaultOutput;
+import lshh.core.lib.type.DefaultOutput;
 import lshh.pollservice.dto.participation.ParticipationDetail;
 import lshh.pollservice.dto.participation.ParticipationSimple;
 import lshh.pollservice.dto.participation.VoteCommand;

@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lshh.pollservice.common.exception.AccessTokenException;
+import lshh.auth.exception.AccessTokenException;
 import lshh.pollservice.domain.AuthService;
 import lshh.pollservice.domain.component.auth.AccessJwtManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

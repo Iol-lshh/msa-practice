@@ -2,7 +2,7 @@ package lshh.pollservice.infrastructure;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import lshh.pollservice.common.lib.ClockManager;
+import lshh.core.lib.util.ClockManager;
 import lshh.pollservice.domain.component.user.UserMemberRepository;
 import lshh.pollservice.domain.entity.user.UserMember;
 import lshh.pollservice.infrastructure.jpa.UserJpaRepository;

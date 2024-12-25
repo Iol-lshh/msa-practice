@@ -1,7 +1,7 @@
 package lshh.pollservice.dto.participation;
 
 import lshh.pollservice.domain.entity.participation.ParticipationScheduleOption;
-import lshh.pollservice.dto.OutputDto;
+import lshh.core.lib.type.OutputDto;
 
 import java.time.Instant;
 

@@ -1,6 +1,6 @@
 package lshh.pollservice.dto.poll;
 
-import lshh.pollservice.dto.InputDto;
+import lshh.core.lib.type.InputDto;
 
 public record PollCloseCommand(
 

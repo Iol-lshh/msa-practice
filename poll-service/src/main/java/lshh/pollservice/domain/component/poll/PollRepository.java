@@ -1,6 +1,6 @@
 package lshh.pollservice.domain.component.poll;
 
-import lshh.pollservice.domain.component.EntityRepository;
+import lshh.core.lib.component.EntityRepository;
 import lshh.pollservice.domain.entity.poll.Poll;
 
 import java.util.List;

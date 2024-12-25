@@ -1,6 +1,7 @@
 package lshh.pollservice.presentation;
 
 import lombok.RequiredArgsConstructor;
+import lshh.core.lib.type.DefaultExceptionHandlable;
 import lshh.pollservice.domain.ScheduleService;
 import lshh.pollservice.dto.schedule.ScheduleCreate;
 import lshh.pollservice.presentation.component.ScheduleResponseFactory;

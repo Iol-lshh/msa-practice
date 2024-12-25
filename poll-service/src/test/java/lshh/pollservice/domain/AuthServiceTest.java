@@ -1,10 +1,12 @@
 package lshh.pollservice.domain;
 
 import lombok.extern.slf4j.Slf4j;
-import lshh.pollservice.common.exception.PersistenceNotFoundException;
+import lshh.core.lib.exception.PersistenceNotFoundException;
+import lshh.auth.lib.type.AuthenticationSet;
+import lshh.auth.lib.type.AuthorizationSet;
 import lshh.pollservice.domain.component.user.UserMemberRepository;
 import lshh.pollservice.domain.entity.user.UserMember;
-import lshh.pollservice.dto.DefaultOutput;
+import lshh.core.lib.type.DefaultOutput;
 import lshh.pollservice.dto.auth.*;
 import lshh.pollservice.dto.user.UserSignUp;
 import org.junit.jupiter.api.Nested;

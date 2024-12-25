@@ -1,6 +1,6 @@
 package lshh.pollservice.domain.component.participation;
 
-import lshh.pollservice.domain.component.EntityFactory;
+import lshh.core.lib.component.EntityFactory;
 import lshh.pollservice.domain.entity.participation.Participation;
 import org.springframework.stereotype.Component;
 

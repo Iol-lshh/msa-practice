@@ -1,10 +1,10 @@
 package lshh.pollservice.domain.component.user;
 
-import lshh.pollservice.domain.component.EntityFactory;
+import lshh.core.lib.component.EntityFactory;
 import lshh.pollservice.domain.entity.user.UserAuthority;
 import lshh.pollservice.domain.entity.user.UserMember;
-import lshh.pollservice.dto.user.ThirdPartyUserResource;
-import lshh.pollservice.dto.user.UserRoleAuthority;
+import lshh.auth.lib.type.ThirdPartyUserResource;
+import lshh.auth.lib.type.UserRoleAuthority;
 import lshh.pollservice.dto.user.UserSignUp;
 import org.springframework.stereotype.Component;
 

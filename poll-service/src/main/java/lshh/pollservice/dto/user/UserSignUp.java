@@ -1,6 +1,6 @@
 package lshh.pollservice.dto.user;
 
-import lshh.pollservice.dto.InputDto;
+import lshh.core.lib.type.InputDto;
 
 public record UserSignUp(
         String loginId,

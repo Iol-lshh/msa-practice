@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lshh.pollservice.common.lib.HashTokenHelper;
-import lshh.pollservice.dto.user.UserRoleAuthority;
+import lshh.auth.lib.util.HashTokenHelper;
+import lshh.auth.lib.type.UserRoleAuthority;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

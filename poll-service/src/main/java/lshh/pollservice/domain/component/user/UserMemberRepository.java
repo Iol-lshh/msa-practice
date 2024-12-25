@@ -1,7 +1,7 @@
 package lshh.pollservice.domain.component.user;
 
-import lshh.pollservice.common.exception.PersistenceNotFoundException;
-import lshh.pollservice.domain.component.EntityRepository;
+import lshh.core.lib.exception.PersistenceNotFoundException;
+import lshh.core.lib.component.EntityRepository;
 import lshh.pollservice.domain.entity.user.UserMember;
 import org.springframework.security.core.userdetails.UserDetails;
 

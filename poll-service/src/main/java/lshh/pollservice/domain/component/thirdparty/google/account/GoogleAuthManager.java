@@ -2,11 +2,11 @@ package lshh.pollservice.domain.component.thirdparty.google.account;
 
 import lombok.RequiredArgsConstructor;
 import lshh.pollservice.common.bean.GoogleAuthenticationClient;
-import lshh.pollservice.common.lib.GoogleAuthorization;
+import lshh.auth.lib.thirdparty.google.GoogleAuthorization;
 import lshh.pollservice.dto.auth.LogInCommandByGoogle;
-import lshh.pollservice.dto.user.GoogleUserResource;
-import lshh.pollservice.dto.user.UserAddAccountCommandByGoogle;
-import lshh.pollservice.dto.user.UserAuthorizeForSignUpCommandByGoogle;
+import lshh.auth.lib.thirdparty.google.GoogleUserResource;
+import lshh.pollservice.dto.user.UserAddAccountByGoogle;
+import lshh.pollservice.dto.user.UserAuthorizeForSignUpByGoogle;
 import lshh.pollservice.dto.user.UserSignUpByGoogle;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +23,7 @@ public class GoogleAuthManager {
         return null;
     }
 
-    public GoogleAuthorization getAuthorization(UserAuthorizeForSignUpCommandByGoogle command) {
+    public GoogleAuthorization getAuthorization(UserAuthorizeForSignUpByGoogle command) {
         // todo
         // refresh 필요시 refresh
         return null;
@@ -35,7 +35,7 @@ public class GoogleAuthManager {
         return null;
     }
 
-    public GoogleUserResource getUserResource(UserAddAccountCommandByGoogle command) {
+    public GoogleUserResource getUserResource(UserAddAccountByGoogle command) {
         // todo
         return null;
     }

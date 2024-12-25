@@ -2,7 +2,7 @@ package lshh.pollservice.common.bean;
 
 import lombok.Getter;
 import lshh.pollservice.domain.UserService;
-import lshh.pollservice.dto.user.UserRoleAuthority;
+import lshh.auth.lib.type.UserRoleAuthority;
 import lshh.pollservice.dto.user.UserRoleUpdate;
 import lshh.pollservice.dto.user.UserSignUp;
 import org.springframework.context.annotation.Configuration;

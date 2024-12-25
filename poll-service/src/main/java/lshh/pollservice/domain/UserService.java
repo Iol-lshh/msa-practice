@@ -1,7 +1,7 @@
 package lshh.pollservice.domain;
 
 import lombok.RequiredArgsConstructor;
-import lshh.pollservice.common.exception.PersistenceDuplicatedException;
+import lshh.core.lib.exception.PersistenceDuplicatedException;
 import lshh.pollservice.domain.component.user.UserMemberFactory;
 import lshh.pollservice.domain.component.user.UserMemberRepository;
 import lshh.pollservice.domain.entity.user.UserMember;

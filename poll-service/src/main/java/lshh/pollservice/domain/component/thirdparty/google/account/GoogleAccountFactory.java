@@ -1,9 +1,9 @@
 package lshh.pollservice.domain.component.thirdparty.google.account;
 
-import lshh.pollservice.domain.component.EntityFactory;
+import lshh.core.lib.component.EntityFactory;
 import lshh.pollservice.domain.entity.auth.google.GoogleAccount;
 import lshh.pollservice.domain.entity.user.UserMember;
-import lshh.pollservice.dto.user.GoogleUserResource;
+import lshh.auth.lib.thirdparty.google.GoogleUserResource;
 import org.springframework.stereotype.Component;
 
 @Component

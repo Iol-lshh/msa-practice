@@ -1,9 +1,9 @@
 package lshh.pollservice.common.bean;
 
 import lombok.extern.slf4j.Slf4j;
-import lshh.pollservice.common.lib.ClockManager;
-import lshh.pollservice.common.lib.HashTokenHelper;
-import lshh.pollservice.common.lib.JwtHelper;
+import lshh.core.lib.util.ClockManager;
+import lshh.auth.lib.util.HashTokenHelper;
+import lshh.auth.lib.util.JwtHelper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

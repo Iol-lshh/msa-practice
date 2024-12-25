@@ -2,7 +2,7 @@ package lshh.pollservice.domain.component.auth;
 
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
-import lshh.pollservice.common.lib.JwtHelper;
+import lshh.auth.lib.util.JwtHelper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 

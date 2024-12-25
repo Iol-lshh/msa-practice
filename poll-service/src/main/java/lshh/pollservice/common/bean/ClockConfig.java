@@ -1,7 +1,7 @@
 package lshh.pollservice.common.bean;
 
-import lshh.pollservice.common.lib.ClockManager;
-import lshh.pollservice.common.lib.LocalClockManager;
+import lshh.core.lib.util.ClockManager;
+import lshh.core.lib.util.LocalClockManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

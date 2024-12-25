@@ -1,6 +1,7 @@
 package lshh.pollservice.presentation;
 
 import lombok.RequiredArgsConstructor;
+import lshh.core.lib.type.DefaultExceptionHandlable;
 import lshh.pollservice.domain.ParticipationService;
 import lshh.pollservice.dto.participation.VoteCommand;
 import lshh.pollservice.dto.participation.VoteUpdateCommand;

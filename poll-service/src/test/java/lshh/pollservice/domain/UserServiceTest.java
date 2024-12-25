@@ -2,7 +2,7 @@ package lshh.pollservice.domain;
 
 import lombok.extern.slf4j.Slf4j;
 import lshh.pollservice.domain.component.user.UserMemberRepository;
-import lshh.pollservice.dto.user.UserRoleAuthority;
+import lshh.auth.lib.type.UserRoleAuthority;
 import lshh.pollservice.dto.user.UserRoleUpdate;
 import lshh.pollservice.dto.user.UserSignUp;
 import org.junit.jupiter.api.Nested;

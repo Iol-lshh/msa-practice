@@ -1,8 +1,8 @@
 package lshh.pollservice.domain.component.thirdparty.google.account;
 
 import lombok.RequiredArgsConstructor;
-import lshh.pollservice.common.lib.GoogleAuthorization;
-import lshh.pollservice.common.lib.JwtHelper;
+import lshh.auth.lib.thirdparty.google.GoogleAuthorization;
+import lshh.auth.lib.util.JwtHelper;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
