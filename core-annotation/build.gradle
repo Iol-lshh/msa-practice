@@ -1,0 +1,29 @@
+plugins {
+    id 'java-library'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'lshh'
+def majorVersion = '0'
+def minorVersion = '0'
+def patchVersion = '1'
+group = 'lshh'
+version = majorVersion + '.' +  minorVersion + '.' + patchVersion
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+    api 'org.projectlombok:lombok:1.18.36'
+}
+
+test {
+    useJUnitPlatform()
+}

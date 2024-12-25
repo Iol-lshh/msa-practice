@@ -1,1 +1,5 @@
-rootProject.name = 'poll-service'
+rootProject.name = 'msa-practice'
+include 'poll-service'
+include 'core'
+include 'core-annotation'
+
