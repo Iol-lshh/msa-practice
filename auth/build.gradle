@@ -27,7 +27,7 @@ dependencies {
     annotationProcessor project(':core-annotation')
     testImplementation project(':core')
     testAnnotationProcessor project(':core-annotation')
-    implementation 'org.springframework.security:spring-security-core:6.4.2'
+    api 'org.springframework.security:spring-security-core:6.4.2'
 }
 
 test {

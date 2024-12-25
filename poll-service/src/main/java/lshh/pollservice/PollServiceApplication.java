@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = {
         "lshh.pollservice",
         "lshh.core.bean",
+        "lshh.auth.bean",
 })
 public class PollServiceApplication {
 
