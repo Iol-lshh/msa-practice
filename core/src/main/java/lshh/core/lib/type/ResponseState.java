@@ -22,6 +22,7 @@ public enum ResponseState {
         };
     }
 
+    @Override
     public String toString() {
         return this.name();
     }

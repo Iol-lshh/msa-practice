@@ -1,6 +1,6 @@
 package lshh.pollservice.domain.component.thirdparty.google.account;
 
-import lshh.core.lib.component.EntityFactory;
+import lshh.core.lib.component.persistence.EntityFactory;
 import lshh.pollservice.domain.entity.auth.google.GoogleAccount;
 import lshh.pollservice.domain.entity.user.UserMember;
 import lshh.auth.lib.thirdparty.google.GoogleUserResource;

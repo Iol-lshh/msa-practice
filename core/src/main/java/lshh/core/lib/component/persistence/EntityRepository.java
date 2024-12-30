@@ -1,4 +1,4 @@
-package lshh.core.lib.component;
+package lshh.core.lib.component.persistence;
 
 import lshh.core.lib.exception.PersistenceNotFoundException;
 

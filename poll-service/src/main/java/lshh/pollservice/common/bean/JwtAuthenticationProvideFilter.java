@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lshh.auth.exception.AccessTokenException;
+import lshh.core.lib.util.TraceThreadManager;
 import lshh.pollservice.domain.AuthService;
 import lshh.pollservice.domain.component.auth.AccessJwtManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,7 +33,7 @@ public class JwtAuthenticationProvideFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
     {
         try {
-            String username = extractUserName(filterChain, request, response);
+            String username = extractUserName(request);
             UserDetails userDetails = service.loadUserByUsername(username);
             confirm(filterChain, request, response, userDetails);
             return;
@@ -48,7 +49,7 @@ public class JwtAuthenticationProvideFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private String extractUserName(FilterChain filterChain, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private String extractUserName(HttpServletRequest request) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
         log.info("authHeader : {}", authHeader);
         if(authHeader == null || !authHeader.startsWith("Bearer ")){
@@ -64,7 +65,7 @@ public class JwtAuthenticationProvideFilter extends OncePerRequestFilter {
 
     private void confirm(FilterChain filterChain, HttpServletRequest request, HttpServletResponse response, UserDetails userDetails) throws ServletException, IOException {
         log.info("getUsername : " + userDetails.getUsername());
-        UserThreadManager.setAdminId(userDetails.getUsername());
+        TraceThreadManager.threadUserId(userDetails.getUsername());
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 userDetails,
                 null,

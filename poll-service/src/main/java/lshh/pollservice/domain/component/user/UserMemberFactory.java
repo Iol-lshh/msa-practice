@@ -1,6 +1,6 @@
 package lshh.pollservice.domain.component.user;
 
-import lshh.core.lib.component.EntityFactory;
+import lshh.core.lib.component.persistence.EntityFactory;
 import lshh.pollservice.domain.entity.user.UserAuthority;
 import lshh.pollservice.domain.entity.user.UserMember;
 import lshh.auth.lib.type.ThirdPartyUserResource;

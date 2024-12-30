@@ -1,0 +1,46 @@
+plugins {
+    id 'java-library'
+    id 'org.springframework.boot' version '3.4.1'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.asciidoctor.jvm.convert' version '3.3.2'
+}
+
+
+def majorVersion = '0'
+def minorVersion = '0'
+def patchVersion = '1'
+group = 'lshh'
+version = majorVersion + '.' +  minorVersion + '.' + patchVersion
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+dependencies {
+    implementation project(':core')
+    annotationProcessor project(':core-annotation')
+    testImplementation project(':core')
+    testAnnotationProcessor project(':core-annotation')
+    implementation 'org.eclipse.jgit:org.eclipse.jgit:7.1.0.202411261347-r'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+

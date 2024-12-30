@@ -1,6 +1,6 @@
 package lshh.pollservice.infrastructure;
 
-import lshh.core.lib.component.EntityRepository;
+import lshh.core.lib.component.persistence.EntityRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
